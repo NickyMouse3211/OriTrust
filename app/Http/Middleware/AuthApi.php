@@ -7,11 +7,21 @@ use Illuminate\Support\Facades\Http;
 
 class AuthApi
 {
+    /**
+     * Base API client.
+     */
+    protected function apiClient()
+    {
+        return Http::withHeaders([
+            'Application-ID' => config('services.user_api.application_id'),
+        ]);
+    }
+
     public function handle($request, Closure $next)
     {
         $token = session('api_token');
 
-        if (! $token) {
+        if (!$token) {
             return redirect()->route('login');
         }
 
@@ -19,15 +29,29 @@ class AuthApi
         $lastSync = session('user_last_sync');
 
         $interval = config('services.user_api.sync_interval', 5);
-        // Refresh user data kalau belum ada / sudah lewat interval
-        if (! $user || !$lastSync || now()->diffInMinutes($lastSync) >= $interval) {
-            $response = Http::withToken($token)
+
+        // Refresh user data if not available or sync interval exceeded
+        if (
+            !$user ||
+            !$lastSync ||
+            now()->diffInMinutes($lastSync) >= $interval
+        ) {
+            $response = $this->apiClient()
+                ->withToken($token)
                 ->get(config('services.user_api.url') . '/me');
 
             if ($response->failed()) {
-                session()->forget(['api_token', 'user', 'user_last_sync']);
-                return redirect()->route('login')
-                    ->withErrors(['email' => 'Sesi login sudah berakhir. Silakan login ulang.']);
+                session()->forget([
+                    'api_token',
+                    'user',
+                    'user_last_sync',
+                ]);
+
+                return redirect()
+                    ->route('login')
+                    ->withErrors([
+                        'email' => 'Sesi login sudah berakhir. Silakan login ulang.',
+                    ]);
             }
 
             $user = $response->json();
@@ -38,7 +62,7 @@ class AuthApi
             ]);
         }
 
-        // inject ke request
+        // Inject authenticated user into request
         $request->merge([
             'auth_user' => $user,
         ]);

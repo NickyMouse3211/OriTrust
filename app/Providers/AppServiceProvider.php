@@ -34,15 +34,10 @@ class AppServiceProvider extends ServiceProvider
             $instanceId = (string) Str::uuid();
             $this->setEnvValue('APP_INSTANCE_ID', $instanceId);
             config(['app.instance_id' => $instanceId]);
+            $this->setEnvValue('APP_NAME', 'Originality');
+            config(['app.name' => 'Originality']);
         } else {
             config(['app.instance_id' => env('APP_INSTANCE_ID')]);
-        }
-        
-        $this->setEnvValue('APP_NAME', 'Originality');
-        config(['app.name' => 'Originality']);
-
-        if (!env('APP_ACTIVATED_CODE')) {
-            // redirect()->route('activation.page')->send();
         }
         
     }

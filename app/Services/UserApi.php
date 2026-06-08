@@ -13,21 +13,36 @@ class UserApi
     }
 
     /**
-     * Request dengan auto-refresh token.
+     * Base HTTP client.
+     */
+    protected static function client()
+    {
+        return Http::withHeaders([
+            'Application-ID' => config('services.user_api.application_id'),
+        ]);
+    }
+
+    /**
+     * Request with auto-refresh token.
      */
     public static function request($method, $uri, $data = [])
     {
         $token = Session::get('api_token');
 
-        $response = Http::withToken($token)->{$method}(self::baseUrl() . $uri, $data);
+        $response = self::client()
+            ->withToken($token)
+            ->{$method}(self::baseUrl() . $uri, $data);
 
-        // Kalau token expired → coba refresh
+        // Token expired -> try refresh
         if ($response->status() === 401 && $token) {
             $refresh = self::refreshToken();
 
             if ($refresh) {
                 $newToken = Session::get('api_token');
-                $response = Http::withToken($newToken)->{$method}(self::baseUrl() . $uri, $data);
+
+                $response = self::client()
+                    ->withToken($newToken)
+                    ->{$method}(self::baseUrl() . $uri, $data);
             }
         }
 
@@ -35,23 +50,43 @@ class UserApi
     }
 
     /**
-     * POST request sederhana (tanpa auto-refresh, biasanya untuk login).
+     * POST request.
      */
     public static function post($uri, $data = [])
     {
-        return Http::post(self::baseUrl() . $uri, $data);
+        return self::client()
+            ->post(self::baseUrl() . $uri, $data);
     }
 
     /**
-     * GET request sederhana (tanpa auto-refresh).
+     * GET request.
      */
     public static function get($uri, $params = [])
     {
-        return Http::get(self::baseUrl() . $uri, $params);
+        return self::client()
+            ->get(self::baseUrl() . $uri, $params);
     }
 
     /**
-     * Refresh token API user.
+     * PUT request.
+     */
+    public static function put($uri, $data = [])
+    {
+        return self::client()
+            ->put(self::baseUrl() . $uri, $data);
+    }
+
+    /**
+     * DELETE request.
+     */
+    public static function delete($uri, $data = [])
+    {
+        return self::client()
+            ->delete(self::baseUrl() . $uri, $data);
+    }
+
+    /**
+     * Refresh API token.
      */
     protected static function refreshToken()
     {
@@ -61,12 +96,16 @@ class UserApi
             return false;
         }
 
-        $refresh = Http::withToken($oldToken)->post(self::baseUrl() . '/refresh');
+        $response = self::client()
+            ->withToken($oldToken)
+            ->post(self::baseUrl() . '/refresh');
 
-        if ($refresh->ok()) {
-            $data = $refresh->json();
+        if ($response->ok()) {
+            $data = $response->json();
+
             Session::put('api_token', $data['token']);
             Session::put('user', $data['user']);
+
             return true;
         }
 
@@ -74,16 +113,21 @@ class UserApi
     }
 
     /**
-     * Logout dari API user.
+     * Logout from API.
      */
     public static function logout()
     {
         $token = Session::get('api_token');
 
         if ($token) {
-            Http::withToken($token)->post(self::baseUrl() . '/logout');
+            self::client()
+                ->withToken($token)
+                ->post(self::baseUrl() . '/logout');
         }
 
-        Session::forget(['api_token', 'user']);
+        Session::forget([
+            'api_token',
+            'user',
+        ]);
     }
 }

@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Services\UserApi;
+use Livewire\Attributes\Layout;
 
+#[Layout('components.layouts.auth')]
 class LoginForm extends Component
 {
     public $email;
@@ -19,18 +21,16 @@ class LoginForm extends Component
             'email' => 'required|email',
             'password' => 'required|min:3',
         ]);
-
         // Kirim ke API Aplikasi User
         $response = UserApi::post('/login', [
             'email' => $this->email,
             'password' => $this->password,
         ]);
-
         if ($response->failed()) {
             $this->errorMessage = "Email atau password salah";
             return;
         }
-
+        
         $data = $response->json();
         
         // 🚫 Jangan simpan user penuh di session

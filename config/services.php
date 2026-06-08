@@ -38,6 +38,7 @@ return [
     'user_api' => [
         'url' => rtrim(env('USER_API_URL', 'http://localhost:8000/api'), '/'),
         'sync_interval' => env('USER_API_SYNC_INTERVAL', 5), // menit
+        'application_id' => env('USER_API_APPLICATION_ID'),
     ],
 
 ];

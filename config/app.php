@@ -125,4 +125,8 @@ return [
 
     'instance_id' => env('APP_INSTANCE_ID'),
 
+    'activated_code' => env('APP_ACTIVATED_CODE', null),
+    'activated_at' => env('APP_ACTIVATED_AT', null),
+    'user_url' => env('USER_URL', 'http://localhost:8000'),
+
 ];
