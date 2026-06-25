@@ -23,18 +23,18 @@
         <span class="hide-menu">Dashboard</span>
       </a>
     </li>
-    <li class="sidebar-item">
+    <!-- <li class="sidebar-item">
       <a class="sidebar-link" href="{{ route('page.404') }}" aria-expanded="false">
         <span>
           <i class="ti ti-shopping-cart"></i>
         </span>
         <span class="hide-menu">Page 404</span>
       </a>
-    </li>
+    </li> -->
     <!-- ---------------------------------- -->
     <!-- User Management -->
     <!-- ---------------------------------- -->
-    @if (in_array(auth_api_user()['permissions'], ['permissions-read', 'roles-read', 'users-read']))
+    @if (in_array(getPermission(), ['permissions-read', 'roles-read', 'users-read']))
       <li class="nav-small-cap">
         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
         <span class="hide-menu">User Management</span>

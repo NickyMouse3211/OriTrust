@@ -5,6 +5,7 @@ use App\Livewire\Auth\LoginForm;
 use App\Services\UserApi;
 use App\Http\Controllers\CustomApiController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Livewire\Auth\Activation;
 
 Route::get('/', function () {
@@ -23,10 +24,9 @@ Route::get('/getApiToken', [CustomApiController::class, 'getToken'])
     ->middleware('auth.api.redirect');
 
 Route::middleware(['auth.api'])->group(function () {
-    Route::get('/dashboard', function () {
-        $me = UserApi::request('get', '/me')->json();
-        return view('dashboard', compact('me'));
-    })->middleware('permission:dashboard-list')->name('dashboard'); // proteksi role tetap bisa dipakai
+
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('profile')
     ->name('profile.')
@@ -36,9 +36,6 @@ Route::middleware(['auth.api'])->group(function () {
         });
     });
 
-    Route::get('/test', function () {
-        dd('test');
-    })->middleware('permission:dashboard-listo');
 });
 
 Route::any('/logout', [\App\Http\Controllers\Auth\LogoutController::class, 'logout'])

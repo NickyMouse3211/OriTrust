@@ -19,3 +19,10 @@ if (! function_exists('auth_api_user')) {
         return AuthApi::user();
     }
 }
+
+if (! function_exists('getPermission')) {
+    function getPermission()
+    {
+        return AuthApi::getPermission();
+    }
+}

@@ -21,7 +21,7 @@ class AuthApi
     {
         $token = session('api_token');
 
-        if (!$token) {
+        if (! $token) {
             return redirect()->route('login');
         }
 
@@ -32,13 +32,13 @@ class AuthApi
 
         // Refresh user data if not available or sync interval exceeded
         if (
-            !$user ||
-            !$lastSync ||
+            ! $user ||
+            ! $lastSync ||
             now()->diffInMinutes($lastSync) >= $interval
         ) {
             $response = $this->apiClient()
                 ->withToken($token)
-                ->get(config('services.user_api.url') . '/me');
+                ->get(config('services.user_api.url').'/me');
 
             if ($response->failed()) {
                 session()->forget([
@@ -50,7 +50,7 @@ class AuthApi
                 return redirect()
                     ->route('login')
                     ->withErrors([
-                        'email' => 'Sesi login sudah berakhir. Silakan login ulang.',
+                        'email' => $response['message'],
                     ]);
             }
 
