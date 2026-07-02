@@ -13,19 +13,27 @@ class AppServiceProvider extends ServiceProvider
         // 👉 Role directive
         Blade::if('role', function ($role) {
             $roles = authUser('roles') ?? [];
+
             return in_array($role, $roles);
         });
 
         // 👉 Permission directive
         Blade::if('permission', function ($perm) {
-            $permissions = authUser('permissions') ?? [];
+            $roles = authUser('roles') ?? [];
+            $appCode = config('app.app_id');
+            $permissions = collect($roles)
+                ->firstWhere('apps_code', $appCode)['permissions'] ?? [];
+
             return in_array($perm, $permissions);
         });
 
         // 👉 Role or Permission directive
         Blade::if('roleOrPermission', function ($value) {
             $roles = authUser('roles') ?? [];
-            $permissions = authUser('permissions') ?? [];
+            $appCode = config('app.app_id');
+            $permissions = collect($roles)
+                ->firstWhere('apps_code', $appCode)['permissions'] ?? [];
+
             return in_array($value, $roles) || in_array($value, $permissions);
         });
 
@@ -39,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
         } else {
             config(['app.instance_id' => env('APP_INSTANCE_ID')]);
         }
-        
+
     }
 
     /**

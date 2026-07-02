@@ -1,0 +1,76 @@
+.uploadFileNM {
+    cursor: pointer;
+    border-radius: 0% !important;
+}
+
+.remove-upload-button {
+    border-radius: 0% !important;
+    font-size: 100% !important;
+}
+
+.custom-file-label {
+    border-radius: 0% !important;
+    cursor: pointer;
+}
+
+.image-tooltip .tooltip-inner {
+    background: #000;
+    padding: 4px;
+    border-radius: .5rem;
+    max-width: none;
+}
+
+.image-tooltip img {
+    display: block;
+    width: 200px;
+    height: auto;
+    border-radius: .35rem;
+}
+
+/* Force Select2 to behave like Bootstrap 5 form-select */
+.select2-container--default .select2-selection--single {
+    height: 38px;
+    /* same as .form-select */
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    position: relative;
+    padding: 0 40px 0 12px;
+    /* space for arrow on right */
+}
+
+/* Arrow position fix */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    position: absolute;
+    right: 10px;
+    top: 50% !important;
+    transform: translateY(-50%);
+    height: auto;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure rendered text stays centered */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: normal;
+    padding: 0;
+}
+
+/* Remove default Bootstrap styles from the original select */
+.basic-select2.form-select {
+    display: none !important;
+}
+
+.select2-option-code {
+    font-size: 10px;
+    font-weight: lighter;
+}
+
+.sidebar-item:not(.selected)>.sidebar-link.active {
+    background-color: var(--bs-secondary) !important;
+    color: var(--bs-white) !important;
+}

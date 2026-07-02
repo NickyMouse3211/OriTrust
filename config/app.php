@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Facade;
+
 return [
 
     /*
@@ -130,5 +132,10 @@ return [
     'activated_code' => env('APP_ACTIVATED_CODE', null),
     'activated_at' => env('APP_ACTIVATED_AT', null),
     'user_url' => env('USER_URL', 'http://localhost:8000'),
+
+    'aliases' => Facade::defaultAliases()->merge([
+        'Helper' => App\Helpers\Helper::class,
+        'AuthApi' => App\Helpers\AuthApi::class,
+    ])->toArray(),
 
 ];

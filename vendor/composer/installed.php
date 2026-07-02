@@ -1,12 +1,14 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'a60ebb84a79c31a816585df4dcfa0851e7d5f4f2',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
-        'aliases' => array(),
+        'aliases' => array(
+            0 => '12.x-dev',
+        ),
         'dev' => true,
     ),
     'versions' => array(
@@ -112,6 +114,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'graham-campbell/manager' => array(
+            'pretty_version' => 'v5.3.0',
+            'version' => '5.3.0.0',
+            'reference' => '38580732dfbe4ddb7c0fad0720c3c80e46a9657e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../graham-campbell/manager',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'graham-campbell/result-type' => array(
             'pretty_version' => 'v1.1.3',
             'version' => '1.1.3.0',
@@ -165,6 +176,15 @@
             'install_path' => __DIR__ . '/../hamcrest/hamcrest-php',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'hashids/hashids' => array(
+            'pretty_version' => '5.0.2',
+            'version' => '5.0.2.0',
+            'reference' => '197171016b77ddf14e259e186559152eb3f8cf33',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hashids/hashids',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'illuminate/auth' => array(
             'dev_requirement' => false,
@@ -392,12 +412,14 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'a60ebb84a79c31a816585df4dcfa0851e7d5f4f2',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
+            'aliases' => array(
+                0 => '12.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'laravel/pail' => array(
@@ -1325,6 +1347,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'vinkla/hashids' => array(
+            'pretty_version' => '13.0.0',
+            'version' => '13.0.0.0',
+            'reference' => 'f59ebf0d223b4986c4bdc76e6e694bf6056f8a0a',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../vinkla/hashids',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'vlucas/phpdotenv' => array(
             'pretty_version' => 'v5.6.2',
             'version' => '5.6.2.0',
@@ -1349,6 +1380,15 @@
             'reference' => '11cb2199493b2f8a3b53e7f19068fc6aac760991',
             'type' => 'library',
             'install_path' => __DIR__ . '/../webmozart/assert',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'yajra/laravel-datatables-oracle' => array(
+            'pretty_version' => 'v12.7.2',
+            'version' => '12.7.2.0',
+            'reference' => 'af48ca6c9f05ee4b67353c630a8f2cae0f2a8a46',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../yajra/laravel-datatables-oracle',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

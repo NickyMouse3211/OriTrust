@@ -34,3 +34,15 @@
 
 <script src="{{ asset('assets') }}/js/extra-libs/jqbootstrapvalidation/validation.js"></script>
 <script src="{{ asset('assets') }}/js/forms/custom-validation-init.js"></script>
+
+<script src="{{ asset('assets') }}/libs/flatpickr/flatpickr-4.6.13.min.js"></script>
+
+<script src="{{ asset('assets') }}/js/customizePlugin/upload/upload.helper.js"></script>
+<script src="{{ asset('assets') }}/js/customizePlugin/upload/upload.validation.js"></script>
+<script src="{{ asset('assets') }}/js/customizePlugin/upload/upload.preview.js"></script>
+<script src="{{ asset('assets') }}/js/customizePlugin/upload/upload.init.js"></script>
+<script src="{{ asset('assets') }}/js/customizePlugin/upload/upload.event.js"></script>
+<script src="{{ asset('assets') }}/js/custom.js"></script>
+
+<script src="{{ asset('assets') }}/js/custom_select2.js"></script>
+<script src="{{ asset('assets') }}/js/custom.js"></script>

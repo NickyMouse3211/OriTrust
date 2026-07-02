@@ -8,7 +8,7 @@
                         <p>Halo Admin 👑</p>
                     @endrole
                     <h1 class="text-2xl font-bold">Dashboard Originality</h1>
-                    {{ dd(getPermission()) }}
+                    {{ json_encode(getPermission()) }}
                     <p class="mt-2">Halo, {{ auth_api_user()['name'] }} {{ auth_api_user()['email'] }}</p>
                     <p class="mt-2">User Token: {{ session('api_token') }}</p>
                 </div>

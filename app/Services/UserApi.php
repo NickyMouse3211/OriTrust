@@ -31,7 +31,7 @@ class UserApi
 
         $response = self::client()
             ->withToken($token)
-            ->{$method}(self::baseUrl() . $uri, $data);
+            ->{$method}(self::baseUrl().$uri, $data);
 
         // Token expired -> try refresh
         if ($response->status() === 401 && $token) {
@@ -42,7 +42,7 @@ class UserApi
 
                 $response = self::client()
                     ->withToken($newToken)
-                    ->{$method}(self::baseUrl() . $uri, $data);
+                    ->{$method}(self::baseUrl().$uri, $data);
             }
         }
 
@@ -52,37 +52,51 @@ class UserApi
     /**
      * POST request.
      */
-    public static function post($uri, $data = [])
+    public static function post($uri, $data = [], $token = null)
     {
-        return self::client()
-            ->post(self::baseUrl() . $uri, $data);
+        $request = self::client();
+
+        if ($token) {
+            $request = $request->withToken($token);
+        }
+
+        return $request->post(self::baseUrl().$uri, $data);
     }
 
     /**
      * GET request.
      */
-    public static function get($uri, $params = [])
+    public static function get($uri, $params = [], $token = null)
     {
-        return self::client()
-            ->get(self::baseUrl() . $uri, $params);
+        $request = self::client();
+
+        if ($token) {
+            $request = $request->withToken($token);
+        }
+
+        return $request->get(self::baseUrl().$uri, $params);
     }
 
     /**
      * PUT request.
      */
-    public static function put($uri, $data = [])
+    public static function put($uri, $data = [], $token = null)
     {
-        return self::client()
-            ->put(self::baseUrl() . $uri, $data);
+        $request = self::client();
+        if ($token) {
+            $request = $request->withToken($token);
+        }
+
+        return $request->put(self::baseUrl().$uri, $data);
     }
 
     /**
      * DELETE request.
      */
-    public static function delete($uri, $data = [])
+    public static function delete($uri, $data = [], $token = null)
     {
         return self::client()
-            ->delete(self::baseUrl() . $uri, $data);
+            ->delete(self::baseUrl().$uri, $data);
     }
 
     /**
@@ -92,13 +106,13 @@ class UserApi
     {
         $oldToken = Session::get('api_token');
 
-        if (!$oldToken) {
+        if (! $oldToken) {
             return false;
         }
 
         $response = self::client()
             ->withToken($oldToken)
-            ->post(self::baseUrl() . '/refresh');
+            ->post(self::baseUrl().'/refresh');
 
         if ($response->ok()) {
             $data = $response->json();
@@ -122,7 +136,7 @@ class UserApi
         if ($token) {
             self::client()
                 ->withToken($token)
-                ->post(self::baseUrl() . '/logout');
+                ->post(self::baseUrl().'/logout');
         }
 
         Session::forget([
